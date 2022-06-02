@@ -32,7 +32,6 @@ public class CountryManagmentService
         });
     }
 
-
     public async Task<IEnumerable<CountryReply>> GetAllAsync()
     {
         return await Task.FromResult(_countries.ToArray());
@@ -50,7 +49,6 @@ public class CountryManagmentService
         _countries.RemoveAll(x => ids.Contains(x.Id));
         await Task.CompletedTask;
     }
-
 
     public async Task UpdateAsync(CountryUpdateRequest country)
     {

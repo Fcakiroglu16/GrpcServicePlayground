@@ -10,6 +10,7 @@ public class CountryGrpcService : CountryServiceBase
 {
     private readonly CountryManagmentService _countryManagmentService;
     private readonly ILogger<CountryGrpcService> _logger;
+
     public CountryGrpcService(CountryManagmentService countryManagmentService, ILogger<CountryGrpcService> logger)
     {
         _countryManagmentService = countryManagmentService;
@@ -48,28 +49,12 @@ public class CountryGrpcService : CountryServiceBase
     public override async Task GetAll(Empty request, IServerStreamWriter<CountryReply> responseStream, ServerCallContext
         context)
     {
-
-        try
-        {
+        
             throw new Exception("something got wrong");
             var countries = await _countryManagmentService.GetAllAsync();
             foreach (var countryReply in countries) await responseStream.WriteAsync(countryReply);
             await Task.CompletedTask;
-        }
-        catch (Exception e)
-        {
-            var correlationId = Guid.NewGuid();
-          _logger.LogError(e,"Correlation Id :{0}",correlationId);
-
-          var trailers = new Metadata();
-          trailers.Add("CorrelationId",correlationId.ToString());
-          
-          //Altaki exception aynı zamanda info log'u atar. message kısmı gözükür. Client  ise detail kısmını görür.
-
-
-          throw new RpcException(new Status(StatusCode.Internal,
-              $"Error sent to client with correlation Id : {correlationId}"),trailers,"Error message that will appear in log server");
-        }
+        
        
     }
 }
