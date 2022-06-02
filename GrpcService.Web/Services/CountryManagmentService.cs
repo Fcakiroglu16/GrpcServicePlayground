@@ -9,21 +9,21 @@ public class CountryManagmentService
 
     public CountryManagmentService()
     {
-        _countries.Add(new()
+        _countries.Add(new CountryReply
         {
             Id = 1,
             Name = "Canada",
             Description = "Canada has at least 32 000 lakes",
             CreateDate = Timestamp.FromDateTime(DateTime.UtcNow)
         });
-        _countries.Add(new()
+        _countries.Add(new CountryReply
         {
             Id = 2,
             Name = "USA",
             Description = "Canada has at least 32 000 lakes",
             CreateDate = Timestamp.FromDateTime(DateTime.UtcNow)
         });
-        _countries.Add(new()
+        _countries.Add(new CountryReply
         {
             Id = 3,
             Name = "Mexico",
@@ -31,25 +31,27 @@ public class CountryManagmentService
             CreateDate = Timestamp.FromDateTime(DateTime.UtcNow)
         });
     }
-    
-    
+
+
     public async Task<IEnumerable<CountryReply>> GetAllAsync()
     {
         return await Task.FromResult(_countries.ToArray());
     }
+
     public async Task<CountryReply?> GetAsync(CountryIdRequest country)
     {
         return await Task.FromResult(_countries.FirstOrDefault(x => x.Id ==
                                                                     country.Id));
     }
+
     public async Task DeleteAsync(IEnumerable<CountryIdRequest> countries)
     {
         var ids = countries.Select(x => x.Id).ToList();
         _countries.RemoveAll(x => ids.Contains(x.Id));
         await Task.CompletedTask;
     }
-    
-    
+
+
     public async Task UpdateAsync(CountryUpdateRequest country)
     {
         var countryToUpdate = _countries.FirstOrDefault(x => x.Id ==
@@ -59,34 +61,32 @@ public class CountryManagmentService
             countryToUpdate.Description = country.Description;
             countryToUpdate.UpdateDate = country.UpdateDate;
         }
+
         await Task.CompletedTask;
     }
-    
+
     public async Task<IEnumerable<CountryCreationReply>> CreateAsync(List
         <CountryCreationRequest> countries)
     {
-        var countryCreationReply = new CountryCreationReply();
         var newCountries = new List<CountryReply>();
         var count = _countries.Count;
-        countries.ForEach(country => {
+        countries.ForEach(country =>
+        {
             var existingCountry = _countries.FirstOrDefault(x => x.Name ==
                                                                  country.Name);
             if (existingCountry == null)
-            {
                 newCountries.Add(new CountryReply
                 {
                     Id = ++count,
                     Name = country.Name,
                     Description = country.Description,
                     Flag = country.Flag,
-                    CreateDate = Timestamp.FromDateTime(DateTime.
-                        SpecifyKind(new DateTime(2021, 1, 2),
-                            DateTimeKind.Utc))
-                }); }
+                    CreateDate = Timestamp.FromDateTime(DateTime.SpecifyKind(new DateTime(2021, 1, 2),
+                        DateTimeKind.Utc))
+                });
         });
         _countries.AddRange(newCountries);
         return await Task.FromResult(newCountries.Select(x => new
             CountryCreationReply { Id = x.Id, Name = x.Name }).ToList());
     }
-
 }

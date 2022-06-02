@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
 {
-    
-    options.ListenLocalhost(5000, o => o.Protocols =HttpProtocols.Http2);
+    options.ListenLocalhost(5000, o => o.Protocols = HttpProtocols.Http2);
 });
 
 // Additional configuration is required to successfully run gRPC on macOS.
@@ -14,9 +13,10 @@ builder.WebHost.ConfigureKestrel(options =>
 // Add services to the container.
 builder.Services.AddGrpc(options =>
 {
- //    options.MaxReceiveMessageSize = 1024 * 1024 * 6; // 6 mb
- // options.MaxSendMessageSize= 1024 * 1024 * 6;
+       options.MaxReceiveMessageSize = 1024 * 1024 * 6; // 6 mb
+    options.MaxSendMessageSize= 1024 * 1024 * 6;
 
+    options.EnableDetailedErrors = true;
 });
 builder.Services.AddSingleton<CountryManagmentService>();
 var app = builder.Build();
