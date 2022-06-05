@@ -11,16 +11,15 @@ public class ExceptionInterceptor : Interceptor
     public ExceptionInterceptor(ILogger<ExceptionInterceptor> logger)
     {
         _logger = logger;
-       
     }
 
-    public override async Task ServerStreamingServerHandler<TRequest, TResponse>(TRequest request, 
-    IServerStreamWriter<TResponse> responseStream,
+    public override async Task ServerStreamingServerHandler<TRequest, TResponse>(TRequest request,
+        IServerStreamWriter<TResponse> responseStream,
         ServerCallContext context, ServerStreamingServerMethod<TRequest, TResponse> continuation)
     {
         try
         {
-             await continuation(request,responseStream, context);
+            await continuation(request, responseStream, context);
         }
         catch (Exception e)
         {

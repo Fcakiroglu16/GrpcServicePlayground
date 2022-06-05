@@ -1,7 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
-using Samples.gRPC;
+using Samples.gRPC.v2;
 
-namespace GrpcService.Web.Services;
+namespace GrpcService.Web.ManagmentService.v2;
 
 public class CountryManagmentService
 {

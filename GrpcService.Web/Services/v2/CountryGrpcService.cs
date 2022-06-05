@@ -1,12 +1,11 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Samples.gRPC;
+using GrpcService.Web.ManagmentService.v2;
+using Samples.gRPC.v2;
 
-namespace GrpcService.Web.Services;
+namespace GrpcService.Web.Services.v2;
 
-using static CountryService;
-
-public class CountryGrpcService : CountryServiceBase
+public class CountryGrpcService : Samples.gRPC.v2.CountryService.CountryServiceBase
 {
     private readonly CountryManagmentService _countryManagmentService;
     private readonly ILogger<CountryGrpcService> _logger;
@@ -26,14 +25,7 @@ public class CountryGrpcService : CountryServiceBase
         foreach (var item in response) await responseStream.WriteAsync(item);
     }
 
-    public override async Task<Empty> Delete(IAsyncStreamReader<CountryIdRequest> requestStream,
-        ServerCallContext context)
-    {
-        var countryIdRequestList = new List<CountryIdRequest>();
-        await foreach (var countryIdRequest in requestStream.ReadAllAsync()) countryIdRequestList.Add(countryIdRequest);
-        await _countryManagmentService.DeleteAsync(countryIdRequestList);
-        return new Empty();
-    }
+  
 
     public override async Task<Empty> Update(CountryUpdateRequest request, ServerCallContext context)
     {
@@ -50,11 +42,8 @@ public class CountryGrpcService : CountryServiceBase
         context)
     {
         
-            throw new Exception("something got wrong");
-            var countries = await _countryManagmentService.GetAllAsync();
-            foreach (var countryReply in countries) await responseStream.WriteAsync(countryReply);
-            await Task.CompletedTask;
-        
-       
+        var countries = await _countryManagmentService.GetAllAsync();
+        foreach (var countryReply in countries) await responseStream.WriteAsync(countryReply);
+        await Task.CompletedTask;
     }
 }

@@ -7,17 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <protobuf Include="Protos\country.proto" Link="country.proto" GrpcServices="Server"/>
+        <protobuf Include="Protos\v1\country.proto" Link="country.proto" GrpcServices="Server" />
+        <protobuf Include="Protos\v2\country.proto" Link="country.proto" GrpcServices="Server" />
     </ItemGroup>
 
 
     <ItemGroup>
 
-        <PackageReference Include="Grpc.AspNetCore" Version="2.40.0"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
     </ItemGroup>
 
 </Project>

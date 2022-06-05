@@ -1,5 +1,7 @@
-using GrpcService.Web.Interceptors;
-using GrpcService.Web.Services;
+
+using v1 = GrpcService.Web.Services.v1;
+using v2 = GrpcService.Web.Services.v2;
+// using GrpcService.Web.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,12 +15,13 @@ builder.Services.AddGrpc(options =>
 {
     options.MaxReceiveMessageSize = 1024 * 1024 * 6; // 6 mb
     options.MaxSendMessageSize = 1024 * 1024 * 6;
-options.Interceptors.Add<ExceptionInterceptor>();
     options.EnableDetailedErrors = true;
 });
-builder.Services.AddSingleton<CountryManagmentService>();
+builder.Services.AddSingleton<GrpcService.Web.ManagmentService.v1.CountryManagmentService>();
+builder.Services.AddSingleton<GrpcService.Web.ManagmentService.v2.CountryManagmentService>();
 var app = builder.Build();
-app.MapGrpcService<CountryGrpcService>();
+app.MapGrpcService<v1.CountryGrpcService>();
+app.MapGrpcService<v2.CountryGrpcService>();
 // Configure the HTTP request pipeline.
 app.MapGet("/",
     () =>
