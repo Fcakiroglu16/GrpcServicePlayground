@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService.Web", "GrpcService.Web\GrpcService.Web.csproj", "{093BA813-18F6-4C1A-8BFA-B9520B4C493B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService.Client", "GrpcService.Client\GrpcService.Client.csproj", "{CBEBB2D8-5CFA-4D01-81E8-10983FA25246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{093BA813-18F6-4C1A-8BFA-B9520B4C493B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{093BA813-18F6-4C1A-8BFA-B9520B4C493B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{093BA813-18F6-4C1A-8BFA-B9520B4C493B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBEBB2D8-5CFA-4D01-81E8-10983FA25246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBEBB2D8-5CFA-4D01-81E8-10983FA25246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBEBB2D8-5CFA-4D01-81E8-10983FA25246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBEBB2D8-5CFA-4D01-81E8-10983FA25246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
